@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import String
 from dart_node.srv import GetInput
 
-from pydarts.communication import RosCommunicator
+from .communication import RosCommunicator
 from pydarts.game import Game
 
 
