@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from dart_node.srv import GetInput, GetInputResponse
+from dartbox.srv import GetInput, GetInputResponse
 import rospy
 
 
