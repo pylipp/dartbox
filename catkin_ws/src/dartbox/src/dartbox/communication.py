@@ -1,3 +1,5 @@
+import rospy
+
 from pydarts.communication import (CommunicatorBase, SanitizationError,
         sanitized_input, MinLargerMaxError,
         )
@@ -16,6 +18,8 @@ class RosCommunicator(CommunicatorBase):
             try:
                 user_input = self._input_method(prompt or "").output
                 sanitized_input_ = sanitized_input(user_input, **kwargs)
+                rospy.loginfo("RosCommunicator: received {}".format(
+                    sanitized_input_))
                 return sanitized_input_
             except SanitizationError as e:
                 self.print_output(str(e))
