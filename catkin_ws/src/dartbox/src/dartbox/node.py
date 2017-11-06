@@ -23,10 +23,3 @@ class DartNode(object):
                 )
 
         self.game = Game(communicator)
-
-
-if __name__ == "__main__":
-    node = DartNode()
-    rospy.init_node("dart_node")
-    node.game.run()
-    rospy.spin()
