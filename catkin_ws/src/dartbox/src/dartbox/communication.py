@@ -14,8 +14,9 @@ class RosCommunicator(CommunicatorBase):
         """
         while True:
             try:
-                user_input = self._input_method(prompt or "").reply
-                return sanitized_input(user_input, **kwargs)
+                user_input = self._input_method(prompt or "").output
+                sanitized_input_ = sanitized_input(user_input, **kwargs)
+                return sanitized_input_
             except SanitizationError as e:
                 self.print_output(str(e))
 

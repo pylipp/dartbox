@@ -2,7 +2,7 @@
 
 import rospy
 from std_msgs.msg import String
-from dartbox.srv import GetInput
+from rosserial_arduino.srv import Test as GetInput
 
 from .communication import RosCommunicator
 from pydarts.game import Game
