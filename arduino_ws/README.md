@@ -6,5 +6,10 @@
     echo layout virtualenvwrapper platformio > .envrc
     direnv allow
     platformio init -b nanoatmega328
+    # rosserial
     platformio install lib 1634
+    # Keypad
+    platformio install lib 165
+    # LiquidCrystal_I2C
+    platformio install lib 576
     platformio run -t upload
