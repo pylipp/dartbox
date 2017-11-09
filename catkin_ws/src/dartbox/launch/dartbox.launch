@@ -4,5 +4,5 @@
     <!-- has to be manually launched because ROS can't find pydarts... -->
     <!--    rosrun dartbox dartbox -->
     <!-- <node name="dart_node" type="dartbox" pkg="dartbox" output="screen"/> -->
-    <node name="echo_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_output"/>
+    <node name="echo_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_output/data"/>
 </launch>
