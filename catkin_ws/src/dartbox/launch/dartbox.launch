@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <launch>
     <node name="serial_node" type="serial_node.py" pkg="rosserial_python" output="screen" args="/dev/ttyUSB0"/>
-    <!-- has to be manually launched because ROS can't find pydarts... -->
-    <!--    rosrun dartbox dartbox -->
-    <!-- <node name="dart_node" type="dartbox" pkg="dartbox" output="screen"/> -->
+    <node name="dart_node" type="dartbox" pkg="dartbox" output="screen"/>
     <node name="echo_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_output/data"/>
 </launch>
