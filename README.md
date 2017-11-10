@@ -29,3 +29,14 @@ DIY-project helping to track dart scores
     git clone https://github.com/pylipp/dartbox --recursive
 
 Please also see the `README`s in `catkin_ws/src` and `arduino_ws`.
+
+### Run it!
+
+    source catkin_ws/devel/setup.zsh
+    roslaunch dartbox dartbox.launch
+
+### TODOs
+
+- make LCD print incoming messages to different rows
+- clear '... starting ...' row
+- enable clearing of chars with `#`
