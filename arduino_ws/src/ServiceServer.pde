@@ -41,10 +41,18 @@ using rosserial_arduino::Test;
 #define MESSAGE_LEN 16
 char buffer[MESSAGE_LEN];
 
+void clearLcdRow(uint8_t n) {
+  lcd.setCursor(0, n);
+  // 19 whitespaces...
+  lcd.print("                   ");
+  lcd.setCursor(0, n);
+}
+
 void callback(const Test::Request & req, Test::Response & res){
   char key;
   int c = 0;
 
+  clearLcdRow(0);
   lcd.print(req.input);
 
   while (true) {
@@ -68,6 +76,7 @@ void callback(const Test::Request & req, Test::Response & res){
 }
 
 void print_output_callback(const std_msgs::String& msg) {
+  clearLcdRow(1);
   lcd.print(msg.data);
 }
 
@@ -81,6 +90,9 @@ void setup()
   lcd.backlight();
   lcd.clear();
   lcd.setCursor(0, 0);
+  lcd.print("   >==PYDARTS==>   ");
+  lcd.setCursor(0, 3);
+  lcd.print("  ... starting ...  ");
 
   nh.initNode();
   nh.subscribe(print_output_subscriber);
