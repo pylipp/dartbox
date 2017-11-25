@@ -11,15 +11,26 @@ from pydarts.game import Game
 class DartNode(object):
 
     def __init__(self):
-        self.print_output_publisher = rospy.Publisher("/print_output", String,
+        print_info_publisher = rospy.Publisher("/print_info", String,
+                queue_size=None)
+        print_error_publisher = rospy.Publisher("/print_error", String,
                 queue_size=None)
 
         rospy.wait_for_service("/get_input")
-        self.get_input_proxy = rospy.ServiceProxy("/get_input", GetInput)
+        get_input_proxy = rospy.ServiceProxy("/get_input", GetInput)
+
+        def input_method(prompt):
+            """Wrapper function to return the `output` attribute of the response
+            object returned from the service proxy.
+            """
+            output = get_input_proxy(prompt).output
+            rospy.loginfo("RosCommunicator: received {}".format(output))
+            return output
 
         communicator = RosCommunicator(
-                self.get_input_proxy,
-                self.print_output_publisher.publish
+                input_method,
+                print_info_publisher.publish,
+                print_error_publisher.publish
                 )
 
         self.game = Game(communicator)
