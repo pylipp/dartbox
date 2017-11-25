@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="get_input_node" type="test_service" pkg="dartbox" output="screen"/>
+    <node name="dart_node" type="dartbox" pkg="dartbox" output="screen"/>
+    <node name="info_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_info/data"/>
+    <node name="error_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_error/data"/>
+</launch>
