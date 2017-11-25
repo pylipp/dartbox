@@ -63,10 +63,10 @@ void callback(const Test::Request & req, Test::Response & res){
     key = keypad.getKey();
 
     if (key) {
-      // clear any errors on keypress
-      clearLcdRow(LCD_ROW_ERROR);
-
       if (key == '*') {
+        // clear any errors on confirmation
+        clearLcdRow(LCD_ROW_ERROR);
+
         // send response
         buffer[c] = (char)0;
         res.output = buffer;
