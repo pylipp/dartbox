@@ -87,16 +87,9 @@ void print_info_callback(const std_msgs::String& msg) {
   lcd.print(msg.data);
 }
 
-void print_error_callback(const std_msgs::String& msg) {
-  clearLcdRow(LCD_ROW_ERROR);
-  lcd.print(msg.data);
-}
-
 ros::ServiceServer<Test::Request, Test::Response> server("get_input", &callback);
 ros::Subscriber<std_msgs::String> print_info_subscriber("print_info",
     print_info_callback);
-ros::Subscriber<std_msgs::String> print_error_subscriber("print_error",
-    print_error_callback);
 
 void setup()
 {
@@ -110,7 +103,6 @@ void setup()
 
   nh.initNode();
   nh.subscribe(print_info_subscriber);
-  nh.subscribe(print_error_subscriber);
   nh.advertiseService(server);
 }
 

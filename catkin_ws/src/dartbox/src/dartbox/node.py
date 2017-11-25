@@ -13,8 +13,6 @@ class DartNode(object):
     def __init__(self):
         print_info_publisher = rospy.Publisher("/print_info", String,
                 queue_size=None)
-        print_error_publisher = rospy.Publisher("/print_error", String,
-                queue_size=None)
 
         rospy.wait_for_service("/get_input")
         get_input_proxy = rospy.ServiceProxy("/get_input", GetInput)
@@ -30,7 +28,6 @@ class DartNode(object):
         communicator = RosCommunicator(
                 input_method,
                 print_info_publisher.publish,
-                print_error_publisher.publish
                 )
 
         self.game = Game(communicator)
