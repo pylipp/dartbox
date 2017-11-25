@@ -36,6 +36,8 @@ uint8_t rowPins[ROWS] = {9, 8, 7, 6}; //connect to the column pinouts of the key
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 ros::NodeHandle  nh;
+// lock to avoid a callback function being executed while another one is running
+bool lock = false;
 using rosserial_arduino::Test;
 
 #define MESSAGE_LEN 16
@@ -53,6 +55,9 @@ void clearLcdRow(uint8_t n) {
 }
 
 void callback(const Test::Request & req, Test::Response & res){
+  if (lock) return;
+  lock = true;
+
   char key;
   int c = 0;
 
@@ -60,6 +65,9 @@ void callback(const Test::Request & req, Test::Response & res){
   lcd.print(req.input);
 
   while (true) {
+    // in order to avoid losing sync with the serial node
+    nh.spinOnce();
+
     key = keypad.getKey();
 
     if (key) {
@@ -80,9 +88,11 @@ void callback(const Test::Request & req, Test::Response & res){
 
     delay(10);
   }
+  lock = false;
 }
 
 void print_info_callback(const std_msgs::String& msg) {
+  if (lock) return;
   clearLcdRow(LCD_ROW_INFO);
   lcd.print(msg.data);
 }
