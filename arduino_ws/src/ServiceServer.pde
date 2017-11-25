@@ -43,9 +43,10 @@ using rosserial_arduino::Test;
 #define MESSAGE_LEN 16
 char buffer[MESSAGE_LEN];
 
+#define LCD_ROW_ERROR 0
 #define LCD_ROW_INPUT 1
-#define LCD_ROW_INFO 2
-#define LCD_ROW_ERROR 3
+#define LCD_ROW_INFO_VISIT 2
+#define LCD_ROW_INFO_FINISHES 3
 
 void clearLcdRow(uint8_t n) {
   lcd.setCursor(0, n);
@@ -61,6 +62,7 @@ void callback(const Test::Request & req, Test::Response & res){
   char key;
   int c = 0;
 
+  clearLcdRow(LCD_ROW_INFO_FINISHES);
   clearLcdRow(LCD_ROW_INPUT);
   lcd.print(req.input);
 
@@ -93,8 +95,24 @@ void callback(const Test::Request & req, Test::Response & res){
 
 void print_info_callback(const std_msgs::String& msg) {
   if (lock) return;
-  clearLcdRow(LCD_ROW_INFO);
-  lcd.print(msg.data);
+
+  char indicator = msg.data[0];
+  int row = 0;
+
+  if (indicator == '!') {
+    row = LCD_ROW_ERROR;
+  }
+  else if (indicator == '?') {
+    row = LCD_ROW_INFO_FINISHES;
+  }
+  else if (indicator == '%') {
+    row = LCD_ROW_INFO_VISIT;
+  }
+  else 
+    return;
+
+  clearLcdRow(row);
+  lcd.print(msg.data + 1);
 }
 
 ros::ServiceServer<Test::Request, Test::Response> server("get_input", &callback);
@@ -106,9 +124,9 @@ void setup()
   lcd.init();
   lcd.backlight();
   lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("   >==PYDARTS==>   ");
   lcd.setCursor(0, LCD_ROW_ERROR);
+  lcd.print("   >==PYDARTS==>   ");
+  lcd.setCursor(0, LCD_ROW_INPUT);
   lcd.print("  ... starting ...  ");
 
   nh.initNode();

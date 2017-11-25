@@ -12,17 +12,17 @@ class RosCommunicator(CommunicatorBase):
 
         if message_type == INFO_VISIT:
             player = data["player"]
-            output = "{p.name} - {p.score_left} - {0}".format(
+            output = "%" + "{p.score_left} - {0}".format(
                     player.darts * "|", p=player)
         elif message_type == INFO_FINISH:
             player = data["player"]
             score_left = str(player.score_left)
             if score_left in finishes:
                 # output only the first option
-                output = " ".join(finishes[score_left][0])
+                output = "?" + " ".join(finishes[score_left][0])
         elif message_type == INFO_LEG:
             players = data["players"]
-            output = ", ".join(
+            output = "!" + ", ".join(
                     ("{}: {:1d}".format(p.name, p.nr_won_legs) for p in players)
                     )
 
@@ -30,4 +30,5 @@ class RosCommunicator(CommunicatorBase):
             self._output_info_method(output)
 
     def print_error(self, **data):
-        self._output_error_method(str(data["error"]))
+        output = "!" + str(data["error"])
+        self._output_error_method(output)
