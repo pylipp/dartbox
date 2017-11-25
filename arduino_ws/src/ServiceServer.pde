@@ -47,8 +47,8 @@ char buffer[MESSAGE_LEN];
 
 void clearLcdRow(uint8_t n) {
   lcd.setCursor(0, n);
-  // 19 whitespaces...
-  lcd.print("                   ");
+  // 20 whitespaces...
+  lcd.print("                    ");
   lcd.setCursor(0, n);
 }
 
