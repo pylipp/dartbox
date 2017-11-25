@@ -20,11 +20,8 @@ DIY-project helping to track dart scores
     sudo rosdep init
     rosdep update
 
-    # development tools
+    # development tools, optional
     sudo apt-get install direnv python-virtualenv virtualenvwrapper
-
-    # pydarts dependencies
-    sudo apt-get install python-lxml
 
     git clone https://github.com/pylipp/dartbox --recursive
 
@@ -37,6 +34,6 @@ Please also see the `README`s in `catkin_ws/src` and `arduino_ws`.
 
 ### TODOs
 
-- make LCD print incoming messages to different rows
-- clear '... starting ...' row
+- [x] make LCD print incoming messages to different rows
+- [x] clear '... starting ...' row
 - enable clearing of chars with `#`
