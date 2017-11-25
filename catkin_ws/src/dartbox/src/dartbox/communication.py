@@ -7,7 +7,7 @@ class RosCommunicator(CommunicatorBase):
     and the 'print_info'/'print_error' topics.
     """
 
-    def print_output(self, message_type, **data):
+    def print_info(self, message_type, **data):
         output = None
 
         if message_type == INFO_VISIT:
@@ -18,7 +18,8 @@ class RosCommunicator(CommunicatorBase):
             player = data["player"]
             score_left = str(player.score_left)
             if score_left in finishes:
-                output = " ".join(finishes[score_left])
+                # output only the first option
+                output = " ".join(finishes[score_left][0])
         elif message_type == INFO_LEG:
             players = data["players"]
             output = ", ".join(
@@ -28,5 +29,5 @@ class RosCommunicator(CommunicatorBase):
         if output is not None:
             self._output_info_method(output)
 
-        def print_error(self, **data):
-            self._output_error_method(str(data["error"]))
+    def print_error(self, **data):
+        self._output_error_method(str(data["error"]))
