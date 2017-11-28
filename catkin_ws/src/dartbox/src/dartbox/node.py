@@ -21,6 +21,7 @@ class DartNode(object):
             """Wrapper function to return the `output` attribute of the response
             object returned from the service proxy.
             """
+            rospy.loginfo("RosCommunicator: prompting '{}'".format(prompt))
             output = get_input_proxy(prompt).output
             rospy.loginfo("RosCommunicator: received {}".format(output))
             return output

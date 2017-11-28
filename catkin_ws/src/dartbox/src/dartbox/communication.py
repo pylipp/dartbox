@@ -37,6 +37,11 @@ class RosCommunicator(CommunicatorBase):
         return user_input
 
     def print_info(self, message_type, **data):
+        """Custom implementation with shorter messages that fit the 20 character
+        width of the LCD. Special chars are used to indicate the LCD row to
+        write the message to.
+        """
+
         output = None
 
         if message_type == INFO_VISIT:
