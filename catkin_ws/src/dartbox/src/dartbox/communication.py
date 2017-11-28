@@ -34,6 +34,11 @@ class RosCommunicator(CommunicatorBase):
         if input_mode == INPUT_ANOTHER_SESSION:
             user_input = {"A": "y", "B": "n", "C": "q"}[user_input]
 
+            if user_input == "q":
+                self._output_info_method("%Thanks for playing!")
+                time.sleep(0.4)
+                self._output_info_method("?   See you soon!   ")
+
         return user_input
 
     def print_info(self, message_type, **data):
