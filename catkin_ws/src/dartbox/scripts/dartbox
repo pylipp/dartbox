@@ -6,9 +6,11 @@ from dartbox.node import DartNode
 
 if __name__ == "__main__":
     node = DartNode()
-    rospy.loginfo("dartbox: initialized DartNode")
     rospy.init_node("dart_node")
+    rospy.loginfo("dartbox: initialized DartNode")
+
     rospy.loginfo("dartbox: starting game...")
     node.game.run()
-    rospy.loginfo(node.game._sessions[0]._players[0].name + " has won!")
-    rospy.spin()
+
+    # not using rospy.spin(), hence the process terminates
+    rospy.loginfo("dartbox: shutting down...")

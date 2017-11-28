@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
     <node name="serial_node" type="serial_node.py" pkg="rosserial_python" output="screen" args="/dev/ttyUSB0"/>
-    <node name="dart_node" type="dartbox" pkg="dartbox" output="screen"/>
+    <node name="dart_node" type="dartbox" pkg="dartbox" output="screen" required="true"/>
     <node name="info_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_info/data"/>
     <node name="error_node" type="rostopic" pkg="rostopic" output="screen" args="echo /print_error/data"/>
 </launch>
