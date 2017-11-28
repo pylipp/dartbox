@@ -62,7 +62,6 @@ void callback(const Test::Request & req, Test::Response & res){
   char key;
   int c = 0;
 
-  clearLcdRow(LCD_ROW_INFO_FINISHES);
   clearLcdRow(LCD_ROW_INPUT);
   lcd.print(req.input);
 
@@ -76,6 +75,7 @@ void callback(const Test::Request & req, Test::Response & res){
       if (key == '*') {
         // clear any errors on confirmation
         clearLcdRow(LCD_ROW_ERROR);
+        clearLcdRow(LCD_ROW_INFO_FINISHES);
 
         // send response
         buffer[c] = (char)0;
