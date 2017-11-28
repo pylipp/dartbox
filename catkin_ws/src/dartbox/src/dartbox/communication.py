@@ -26,7 +26,7 @@ class RosCommunicator(CommunicatorBase):
         if input_mode == INPUT_ANOTHER_SESSION:
             self._output_info_method("%A=yes, B=no, C=quit")
             # minimal delay, otherwise service request gets lost
-            time.sleep(0.1)
+            time.sleep(0.4)
 
         user_input = super(RosCommunicator, self).get_input(input_mode,
                 *format_args)
